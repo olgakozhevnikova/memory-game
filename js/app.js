@@ -1,29 +1,30 @@
-/*
- * Create a list that holds all of your cards
- */
+'use strict';
 
+// Create a list that holds all of cards
+let cards = document.getElementsByClassName('card');
+console.log(cards);
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+// Shuffle cards
+$(function () {
+    var parent = $('.deck');
+    var card = parent.children();
+    while (card.length) {
+        parent.append(card.splice(Math.floor(Math.random() * card.length), 1)[0]);
     }
+});
 
-    return array;
+// Set up the event listener for cards
+Array.prototype.forEach.call(cards, openCard);
+
+function openCard(element) {
+	element.addEventListener('click', function() {
+		element.classList.add('show', 'open');
+	}, false);
 }
+
+
+
+
 
 
 /*
