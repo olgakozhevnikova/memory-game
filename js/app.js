@@ -39,6 +39,7 @@ function openCard() {
 	}
 }
 
+// if the cards do match, lock the cards in the open position
 function match() {
 	cardsOpen[0].classList.add('match');
 	cardsOpen[0].classList.remove('show', 'open');
@@ -47,14 +48,23 @@ function match() {
 	cardsOpen = [];
 }
 
+// if the cards do not match, remove the cards from the list and hide the card's symbol
 function unmatch() {
+	cardsOpen[0].classList.remove('open');
+	cardsOpen[1].classList.remove('open');
+	cardsOpen[0].classList.add('unmatched');
+	cardsOpen[1].classList.add('unmatched');
 	setTimeout(function() {
-		cardsOpen[0].classList.remove('show', 'open');
-		cardsOpen[1].classList.remove('show', 'open');
+		cardsOpen[0].classList.remove('show');
+		cardsOpen[1].classList.remove('show');
+		cardsOpen[0].classList.remove('unmatched');
+		cardsOpen[1].classList.remove('unmatched');
 		cardsOpen = [];
 		console.log(cardsOpen);
 	}, 1000);
 }
+
+
 
 
 /*

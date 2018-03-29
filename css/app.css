@@ -81,6 +81,10 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.unmatched {
+    background: #ff3b3f;
+}
+
 /*
  * Styles for the Score Panel
  */
