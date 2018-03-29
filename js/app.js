@@ -14,11 +14,14 @@ let cardsOpen = [];
 
 // Shuffle cards
 $(function() {
-    var parent = $('.deck');
-    var card = parent.children();
+	let parent = $('.deck');
+    let card = parent.children();
     while (card.length) {
         parent.append(card.splice(Math.floor(Math.random() * card.length), 1)[0]);
-    }
+	}
+	setTimeout(function() {
+		startTimer();
+	}, 5000);
 });
 
 // Set up the event listener for cards
@@ -37,17 +40,29 @@ $(function() {
 function openCard() {
 	this.classList.add('show', 'open');
 	cardsOpen.push(this);
-	console.log(cardsOpen);
 	if (cardsOpen.length === 2) {
 		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
-			//console.log('matching');
 			match();
 		}
 		else {
-			//console.log('not matching');
 			unmatch();
 		}
 	}
+}
+
+// Start the timer
+let min = 0, sec = 0;
+let timer = document.querySelector('.timer');
+let interval;
+function startTimer() {
+	interval = setInterval(function(){
+		timer.innerHTML = min + " mins " + sec + " secs";
+		sec++;
+		if (sec === 60){
+			min++;
+			sec = 0;
+		}
+	}, 1000);
 }
 
 // if the cards do match, lock the cards in the open position
@@ -74,6 +89,7 @@ function unmatch() {
 	}, 1000);
 }
 
+//  if all cards have matched, display a message with the final score
 function openModal() {
 	if (cardsMatched.length == 16) {
 		$('.container').hide();
