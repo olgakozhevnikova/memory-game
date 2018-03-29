@@ -29,18 +29,21 @@ function openCard() {
 	console.log(cardsOpen);
 	if (cardsOpen.length === 2) {
 		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
-			console.log('matching');
+			//console.log('matching');
+			match();
 		}
 		else {
-			console.log('not matching');
+			//console.log('not matching');
 		}
 	}
 }
 
-
-
-
-
+function match() {
+	cardsOpen[0].classList.add('match');
+	cardsOpen[0].classList.remove('show', 'open');
+	cardsOpen[1].classList.add('match');
+	cardsOpen[1].classList.remove('show', 'open');
+}
 
 
 /*
