@@ -34,6 +34,7 @@ function openCard() {
 		}
 		else {
 			//console.log('not matching');
+			unmatch();
 		}
 	}
 }
@@ -43,6 +44,16 @@ function match() {
 	cardsOpen[0].classList.remove('show', 'open');
 	cardsOpen[1].classList.add('match');
 	cardsOpen[1].classList.remove('show', 'open');
+	cardsOpen = [];
+}
+
+function unmatch() {
+	setTimeout(function() {
+		cardsOpen[0].classList.remove('show', 'open');
+		cardsOpen[1].classList.remove('show', 'open');
+		cardsOpen = [];
+		console.log(cardsOpen);
+	}, 1000);
 }
 
 
