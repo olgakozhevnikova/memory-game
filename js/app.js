@@ -2,10 +2,12 @@
 
 // Create a list that holds all of cards
 let cards = document.getElementsByClassName('card');
-console.log(cards);
+
+// Create a list that holds open cards
+let cardsOpen = [];
 
 // Shuffle cards
-$(function () {
+$(function() {
     var parent = $('.deck');
     var card = parent.children();
     while (card.length) {
@@ -14,13 +16,27 @@ $(function () {
 });
 
 // Set up the event listener for cards
-Array.prototype.forEach.call(cards, openCard);
+// []=Array.prototype
+[].forEach.call(cards, function(element) {
+	element.addEventListener('click', openCard, false);
+});
 
-function openCard(element) {
-	element.addEventListener('click', function() {
-		element.classList.add('show', 'open');
-	}, false);
+
+// add the card to a *list* of "open" cards 
+function openCard() {
+	this.classList.add('show', 'open');
+	cardsOpen.push(this);
+	console.log(cardsOpen);
+	if (cardsOpen.length === 2) {
+		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
+			console.log('matching');
+		}
+		else {
+			console.log('not matching');
+		}
+	}
 }
+
 
 
 
@@ -29,7 +45,6 @@ function openCard(element) {
 
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
