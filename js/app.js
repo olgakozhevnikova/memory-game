@@ -3,6 +3,12 @@
 // Create a list that holds all of cards
 let cards = document.getElementsByClassName('card');
 
+// Create a list of all matched cards
+let cardsMatched = document.getElementsByClassName('match');
+
+// Get the modal
+let modal = document.getElementById('myModal');
+
 // Create a list that holds open cards
 let cardsOpen = [];
 
@@ -18,7 +24,12 @@ $(function() {
 // Set up the event listener for cards
 // []=Array.prototype
 [].forEach.call(cards, function(element) {
+	element.classList.add('enable');
+	setTimeout(function() {
+		element.classList.remove('enable');
+	}, 5000);
 	element.addEventListener('click', openCard, false);
+	element.addEventListener('click', openModal);
 });
 
 
@@ -60,8 +71,15 @@ function unmatch() {
 		cardsOpen[0].classList.remove('unmatched');
 		cardsOpen[1].classList.remove('unmatched');
 		cardsOpen = [];
-		console.log(cardsOpen);
 	}, 1000);
+}
+
+function openModal() {
+	if (cardsMatched.length == 16) {
+		$('.container').hide();
+		document.body.style.background = "#fff";
+		modal.style.display = "block";
+	}
 }
 
 
