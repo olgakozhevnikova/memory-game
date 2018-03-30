@@ -6,6 +6,9 @@ let cards = document.getElementsByClassName('card');
 // Create a list of all matched cards
 let cardsMatched = document.getElementsByClassName('match');
 
+// Declare a variable for a deck
+let deck = document.querySelector('.deck');
+
 // Get the modal
 let modal = document.getElementById('myModal');
 
@@ -38,6 +41,8 @@ function startGame() {
 		element.addEventListener('click', openCard, false);
 		element.addEventListener('click', openModal, false);
 	});
+	// Start the timer on first click
+	oneClick(deck, 'click', startTimer);
 
 	// Reset moves
 	moves = 0;
@@ -48,6 +53,15 @@ function startGame() {
 	min = 0;
 	timer.innerHTML = '0 mins 0 secs';
 	clearInterval(interval);
+}
+
+// The function which stops after the first click
+function oneClick(el, type, fn) {
+    function handler(event) {
+        el.removeEventListener(type, handler);
+        fn(event);
+    }
+    el.addEventListener(type, handler);
 }
 
 // Shuffle cards
@@ -114,13 +128,6 @@ function startTimer() {
 function moveCounter() {
 	moves++;
 	counter.innerHTML = moves;
-
-	// Start the timer on first click
-	if (moves == 1) {
-		min = 0;
-		sec = 0;
-		startTimer();
-	}
 
 	/* 
 	  - Set number of stars based on number of moves
