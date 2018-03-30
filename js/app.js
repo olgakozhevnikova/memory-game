@@ -1,5 +1,8 @@
 'use strict';
 
+// Declare a variable for container
+let gameBoard = document.querySelector('.container');
+
 // Create a list that holds all of cards
 let cards = document.getElementsByClassName('card');
 
@@ -17,7 +20,7 @@ let cardsOpen = [];
 
 // Declare variables for stars
 let stars = document.querySelectorAll('.fa-star');
-let starRating = document.querySelector('.stars').innerHTML;
+let starsNumber = 3;
 
 // Declare variables for moves
 let moves = 0;
@@ -35,6 +38,8 @@ function startGame() {
 	// Set up the event listener for cards
 	// []=Array.prototype
 	[].forEach.call(cards, function(element) {
+		// Remove class match
+		element.classList.remove('match');
 		element.classList.add('enable');
 		setTimeout(function() {
 			element.classList.remove('enable');
@@ -55,6 +60,11 @@ function startGame() {
 	min = 0;
 	timer.innerHTML = '0 mins 0 secs';
 	clearInterval(interval);
+
+	// Reset stars
+	for (let i = 0; i < 3; i++) {
+		stars[i].style.visibility = 'visible'; 
+	}
 }
 
 // The function which stops after the first click
@@ -142,6 +152,7 @@ function moveCounter() {
 				stars[i].style.visibility = 'collapse'; 
 			}
 		}
+		starsNumber = 2;
 	}
 
 	// If player makes 6 (2+2+2) wrong moves, he gets 1 star
@@ -151,6 +162,7 @@ function moveCounter() {
 				stars[i].style.visibility = 'collapse';
 			}
 		}
+		starsNumber = 1;
 	}
 
 	// If player makes more than 8 (2+2+2+2) wrong moves, he gets 0 stars
@@ -158,11 +170,9 @@ function moveCounter() {
 		for (let i = 0; i < 3; i++) {
 			stars[i].style.visibility = 'collapse'; 
 		}
-		starRating = 0;		
+		starsNumber = 0;		
 	}
 }
-
-let gameBoard = document.querySelector('.container');
 
 // If all cards have matched, display a message with the final score
 function openModal() {
@@ -176,14 +186,14 @@ function openModal() {
 		// Display number of moves and stars and playing time in the modal
 		document.getElementById('time').innerHTML = finalTime;
 		document.getElementById('moves').innerHTML = moves;
-		document.getElementById('stars').innerHTML = starRating;
+		document.getElementById('stars').innerHTML = starsNumber;
 	}
 }
 
 // Play again after clicking the button on modal
 function playAgain() {
 	modal.style.display = 'none';
-	gameBoard.style.display = 'inline-block';
-	document.body.style.background = '#ffffff url("../img/gometry2.png")';
+	gameBoard.style.display = 'flex';
+	document.body.style.backgroundImage = "url('../img/geometry2.png')";
 	startGame();
 }
