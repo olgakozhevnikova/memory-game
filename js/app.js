@@ -15,8 +15,9 @@ let modal = document.getElementById('myModal');
 // Create a list that holds open cards
 let cardsOpen = [];
 
-// Declare a variable for stars
+// Declare variables for stars
 let stars = document.querySelectorAll('.fa-star');
+let starRating = document.querySelector('.stars').innerHTML;
 
 // Declare variables for moves
 let moves = 0;
@@ -40,6 +41,7 @@ function startGame() {
 		}, 5000);
 		element.addEventListener('click', openCard, false);
 		element.addEventListener('click', openModal, false);
+		element.classList.add('show', 'open');
 	});
 	// Start the timer on first click
 	oneClick(deck, 'click', startTimer);
@@ -155,22 +157,33 @@ function moveCounter() {
 	if (moves > 14) {
 		for (let i = 0; i < 3; i++) {
 			stars[i].style.visibility = 'collapse'; 
-		}		
+		}
+		starRating = 0;		
 	}
 }
+
+let gameBoard = document.querySelector('.container');
 
 // If all cards have matched, display a message with the final score
 function openModal() {
 	if (cardsMatched.length == 16) {
 		clearInterval(interval);
-		finalTime = timer.innerHTML;
-		$('.container').hide();
+		let finalTime = timer.innerHTML;
+		gameBoard.style.display = 'none';
 		document.body.style.background = '#fff';
 		modal.style.display = 'block';
 
 		// Display number of moves and stars and playing time in the modal
 		document.getElementById('time').innerHTML = finalTime;
-		//document.getElementById('moves').innerHTML = ;
-		//document.getElementById('stars').innerHTML = ;
+		document.getElementById('moves').innerHTML = moves;
+		document.getElementById('stars').innerHTML = starRating;
 	}
+}
+
+// Play again after clicking the button on modal
+function playAgain() {
+	modal.style.display = 'none';
+	gameBoard.style.display = 'inline-block';
+	document.body.style.background = '#ffffff url("../img/gometry2.png")';
+	startGame();
 }
