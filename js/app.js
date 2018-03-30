@@ -12,8 +12,29 @@ let modal = document.getElementById('myModal');
 // Create a list that holds open cards
 let cardsOpen = [];
 
+// Declare a variable for stars
+let stars = document.querySelectorAll('.fa-star');
+
+// Declare variables for moves
+let moves = 0;
+let counter = document.querySelector('.moves');
+
 // Refresh page
-window.onload = shuffle;
+window.onload = startGame;
+
+function startGame() {
+	shuffle();
+	// Set up the event listener for cards
+	// []=Array.prototype
+	[].forEach.call(cards, function(element) {
+		element.classList.add('enable');
+		setTimeout(function() {
+			element.classList.remove('enable');
+		}, 5000);
+		element.addEventListener('click', openCard, false);
+		element.addEventListener('click', openModal);
+	});
+}
 
 // Shuffle cards
 function shuffle() {
@@ -24,23 +45,13 @@ function shuffle() {
 	}
 }
 
-// Set up the event listener for cards
-// []=Array.prototype
-[].forEach.call(cards, function(element) {
-	element.classList.add('enable');
-	setTimeout(function() {
-		element.classList.remove('enable');
-	}, 5000);
-	element.addEventListener('click', openCard, false);
-	element.addEventListener('click', openModal);
-});
-
-
 // add the card to a *list* of "open" cards 
 function openCard() {
+	clearInterval(interval);
 	this.classList.add('show', 'open');
 	cardsOpen.push(this);
 	if (cardsOpen.length === 2) {
+		moveCounter();
 		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
 			match();
 		}
@@ -48,21 +59,6 @@ function openCard() {
 			unmatch();
 		}
 	}
-}
-
-// Start the timer
-let min = 0, sec = 0;
-let timer = document.querySelector('.timer');
-let interval;
-function startTimer() {
-	interval = setInterval(function(){
-		timer.innerHTML = min + " mins " + sec + " secs";
-		sec++;
-		if (sec === 60){
-			min++;
-			sec = 0;
-		}
-	}, 1000);
 }
 
 // if the cards do match, lock the cards in the open position
@@ -89,17 +85,76 @@ function unmatch() {
 	}, 1000);
 }
 
-//  if all cards have matched, display a message with the final score
-function openModal() {
-	if (cardsMatched.length == 16) {
-		$('.container').hide();
-		document.body.style.background = "#fff";
-		modal.style.display = "block";
+// Start the timer
+let min = 0, sec = 0;
+let timer = document.querySelector('.timer');
+let interval;
+function startTimer() {
+    interval = setInterval(function(){
+		timer.innerHTML = min + ' mins ' + sec + ' secs';
+		sec++;
+		if (sec === 60){
+			min++;
+			sec = 0;
+		}
+	}, 1000);
+}
+
+// increment the move counter and display it on the page
+function moveCounter() {
+	moves++;
+	counter.innerHTML = moves;
+
+	// start the timer on first click
+	if (moves == 1) {
+		min = 0;
+		sec = 0;
+		startTimer();
+	}
+
+	// set number of stars based on number of moves
+	// if player makes 2 wrong moves, he still gets 3 stars
+	// if player makes 4 (2+2) wrong moves, he gets 2 stars
+	if (moves > 10 && moves <= 12) {
+		for (let i = 0; i < 3; i++) {
+			if (i > 1) {
+				stars[i].style.visibility = 'collapse'; 
+			}
+		}
+	}
+
+	// if player makes 6 (2+2+2) wrong moves, he gets 1 star
+	if (moves > 12 && moves <= 14) {
+		for (let i = 0; i < 3; i++) {
+			if (i > 0) {
+				stars[i].style.visibility = 'collapse';
+			}
+		}
+	}
+
+	// if player makes more than 8 (2+2+2+2) wrong moves, he gets 0 stars
+	if (moves > 14) {
+		for (let i = 0; i < 3; i++) {
+			stars[i].style.visibility = 'collapse'; 
+		}		
 	}
 }
 
+// if all cards have matched, display a message with the final score
+function openModal() {
+	if (cardsMatched.length == 16) {
+		clearInterval(interval);
+		finalTime = timer.innerHTML;
+		$('.container').hide();
+		document.body.style.background = '#fff';
+		modal.style.display = 'block';
 
-
+		// Display number of moves and stars and playing time in the modal
+		document.getElementById('time').innerHTML = finalTime;
+		//document.getElementById('moves').innerHTML = ;
+		//document.getElementById('stars').innerHTML = ;
+	}
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
