@@ -12,17 +12,17 @@ let modal = document.getElementById('myModal');
 // Create a list that holds open cards
 let cardsOpen = [];
 
+// Refresh page
+window.onload = shuffle;
+
 // Shuffle cards
-$(function() {
+function shuffle() {
 	let parent = $('.deck');
     let card = parent.children();
     while (card.length) {
         parent.append(card.splice(Math.floor(Math.random() * card.length), 1)[0]);
 	}
-	setTimeout(function() {
-		startTimer();
-	}, 5000);
-});
+}
 
 // Set up the event listener for cards
 // []=Array.prototype
