@@ -180,7 +180,6 @@ function openModal() {
 		clearInterval(interval);
 		let finalTime = timer.innerHTML;
 		gameBoard.style.display = 'none';
-		document.body.style.background = '#fff';
 		modal.style.display = 'block';
 
 		// Display number of moves and stars and playing time in the modal
@@ -194,6 +193,5 @@ function openModal() {
 function playAgain() {
 	modal.style.display = 'none';
 	gameBoard.style.display = 'flex';
-	document.body.style.backgroundImage = "url('../img/geometry2.png')";
 	startGame();
 }
