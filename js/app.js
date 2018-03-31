@@ -46,7 +46,7 @@ function startGame() {
 		}, 5000);
 		element.addEventListener('click', openCard, false);
 		element.addEventListener('click', openModal, false);
-		element.classList.add('show', 'open');
+		//element.classList.add('show', 'open');
 	});
 	// Start the timer on first click
 	oneClick(deck, 'click', startTimer);
