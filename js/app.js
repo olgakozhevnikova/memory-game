@@ -88,7 +88,10 @@ function shuffle() {
 // Add the card to a *list* of "open" cards 
 function openCard() {
 	this.classList.add('show', 'open');
-	cardsOpen.push(this);
+	
+		cardsOpen.push(this);
+		this.classList.add('clicked');
+	
 	if (cardsOpen.length === 2) {
 		moveCounter();
 		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
