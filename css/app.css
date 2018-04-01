@@ -135,9 +135,8 @@ h1 {
 
 .deck .card.unmatched {
     background: #ff3b3f;
-    animation-name: wooble;
-    animation-duration: 0.7s;
- 
+    animation: flipInY 1s,
+               wooble 0.7s 0.5s;
 }
 
 @keyframes wooble {

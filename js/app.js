@@ -113,16 +113,16 @@ function match() {
 // If the cards do not match, remove the cards from the list and hide the card's symbol
 function unmatch() {
 	cardsOpen[0].classList.remove('open', 'clicked');
-	cardsOpen[1].classList.remove('open', 'clicked');
 	cardsOpen[0].classList.add('unmatched');
+	cardsOpen[1].classList.remove('open', 'clicked');
 	cardsOpen[1].classList.add('unmatched');
 	setTimeout(function() {
 		cardsOpen[0].classList.remove('show');
-		cardsOpen[1].classList.remove('show');
 		cardsOpen[0].classList.remove('unmatched');
+		cardsOpen[1].classList.remove('show');
 		cardsOpen[1].classList.remove('unmatched');
 		cardsOpen = [];
-	}, 1000);
+	}, 1500);
 }
 
 // Start the timer
