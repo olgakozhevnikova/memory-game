@@ -46,7 +46,6 @@ function startGame() {
 		}, 5000);
 		element.addEventListener('click', openCard, false);
 		element.addEventListener('click', openModal, false);
-		//element.classList.add('show', 'open');
 	});
 	// Start the timer on first click
 	oneClick(deck, 'click', startTimer);
@@ -87,18 +86,17 @@ function shuffle() {
 
 // Add the card to a *list* of "open" cards 
 function openCard() {
-	this.classList.add('show', 'open');
-	
+	if (!this.classList.contains('clicked')) {
+		this.classList.add('show', 'open', 'clicked');
 		cardsOpen.push(this);
-		this.classList.add('clicked');
-	
-	if (cardsOpen.length === 2) {
-		moveCounter();
-		if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
-			match();
-		}
-		else {
-			unmatch();
+		if (cardsOpen.length === 2) {
+			moveCounter();
+			if (cardsOpen[0].innerHTML === cardsOpen[1].innerHTML) {
+				match();
+			}
+			else {
+				unmatch();
+			}
 		}
 	}
 }
@@ -114,8 +112,8 @@ function match() {
 
 // If the cards do not match, remove the cards from the list and hide the card's symbol
 function unmatch() {
-	cardsOpen[0].classList.remove('open');
-	cardsOpen[1].classList.remove('open');
+	cardsOpen[0].classList.remove('open', 'clicked');
+	cardsOpen[1].classList.remove('open', 'clicked');
 	cardsOpen[0].classList.add('unmatched');
 	cardsOpen[1].classList.add('unmatched');
 	setTimeout(function() {
