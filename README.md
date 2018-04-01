@@ -2,14 +2,14 @@
 
 ## About the game
 
-It is a game to test player's memory. It has 8 pairs of cards with different images. Within few first seconds the player needs to remember the location of similar cards on the board and then match each pair in a less number of moves. 
+It is a game to test player's memory. It consists of 16 cards arranged in a random order. The deck is made up of 8 different pairs of cards, each with different symbols on one side. Within few seconds a player needs to remember the location of cards on the board and then flip over two hidden cards at a time to locate the ones that match in a less number of moves. 
 
 ## How to play
 
 1. Within 5 seconds all cards are open - try to remember the location of each card.
-2. Click on one card to open it.
-3. Click on another card to open it.
-4. If both cards have the same image (matched), they will remain open, otherwise they will be closed again.
+2. Flip one card over to reveal its symbol.
+3. Flip over a second card, trying to find the corresponding card with the same symbol.
+4. If the cards have the same image (matched), both cards stay flipped over, otherwise both cards are flipped face down.
 5. Keep opening cards untill all cards are matched.
 6. If you want to restart the game, click a round arrow on top of the board.
 7. When the game is finished, you will see the pop-up window with scores.
