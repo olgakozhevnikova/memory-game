@@ -157,21 +157,13 @@ function moveCounter() {
 	}
 
 	// If player makes 6 (2+2+2) wrong moves, he gets 1 star
-	if (moves > 12 && moves <= 14) {
+	if (moves > 12) {
 		for (let i = 0; i < 3; i++) {
 			if (i > 0) {
 				stars[i].style.visibility = 'collapse';
 			}
 		}
 		starsNumber = 1;
-	}
-
-	// If player makes more than 8 (2+2+2+2) wrong moves, he gets 0 stars
-	if (moves > 14) {
-		for (let i = 0; i < 3; i++) {
-			stars[i].style.visibility = 'collapse'; 
-		}
-		starsNumber = 0;		
 	}
 }
 
