@@ -20,7 +20,7 @@ let cardsOpen = [];
 
 // Declare variables for stars
 let stars = document.querySelectorAll('.fa-star');
-let starsNumber = 3;
+let starsNumber;
 
 // Declare variables for moves
 let moves = 0;
@@ -30,6 +30,9 @@ let counter = document.querySelector('.moves');
 let timer = document.querySelector('.timer');
 let min = 0, sec = 0, interval;
 
+// Get the Play again button, which is in the modal
+let playBtn = document.getElementById('btn');
+
 // Refresh page
 window.onload = startGame;
 
@@ -38,8 +41,8 @@ function startGame() {
 	// Set up the event listener for cards
 	// []=Array.prototype
 	[].forEach.call(cards, function(element) {
-		// Remove class match
-		element.classList.remove('match');
+		// Remove all classes from cards
+		element.classList.remove('match', 'clicked', 'unmatched', 'open', 'show');
 		element.classList.add('enable');
 		setTimeout(function() {
 			element.classList.remove('enable');
@@ -57,6 +60,7 @@ function startGame() {
 	// Reset timer
 	sec = 0;
 	min = 0;
+	let timer = document.querySelector('.timer');
 	timer.innerHTML = '0 mins 0 secs';
 	clearInterval(interval);
 
@@ -116,17 +120,24 @@ function unmatch() {
 	cardsOpen[0].classList.add('unmatched');
 	cardsOpen[1].classList.remove('open', 'clicked');
 	cardsOpen[1].classList.add('unmatched');
+	[].forEach.call(cards, function(element) {
+		element.classList.toggle('disable');
+	});
 	setTimeout(function() {
 		cardsOpen[0].classList.remove('show');
 		cardsOpen[0].classList.remove('unmatched');
 		cardsOpen[1].classList.remove('show');
 		cardsOpen[1].classList.remove('unmatched');
+		[].forEach.call(cards, function(element) {
+			element.classList.toggle('disable');
+		});
 		cardsOpen = [];
 	}, 1500);
 }
 
 // Start the timer
 function startTimer() {
+	clearInterval(interval);
     interval = setInterval(function(){
 		timer.innerHTML = min + ' mins ' + sec + ' secs';
 		sec++;
@@ -144,26 +155,29 @@ function moveCounter() {
 
 	/* 
 	  - Set number of stars based on number of moves
-	  - If player makes 2 wrong moves, he still gets 3 stars
-	  - If player makes 4 (2+2) wrong moves, he gets 2 stars
 	*/
-	if (moves > 10 && moves <= 12) {
+	// If player makes 2 wrong moves, he still gets 3 stars
+	if (moves <= 10) {
+		starsNumber = 3;
+	}
+	// If player makes 5 (2+3) wrong moves, he gets 2 stars
+	if (moves > 10 && moves < 14) {
 		for (let i = 0; i < 3; i++) {
 			if (i > 1) {
-				stars[i].style.visibility = 'collapse'; 
+				stars[i].style.visibility = 'collapse';
+				starsNumber = 2; 
 			}
 		}
-		starsNumber = 2;
 	}
 
-	// If player makes 6 (2+2+2) wrong moves, he gets 1 star
-	if (moves > 12) {
+	// If player makes 6 and more wrong moves, he gets 1 star
+	if (moves >= 14) {
 		for (let i = 0; i < 3; i++) {
 			if (i > 0) {
 				stars[i].style.visibility = 'collapse';
+				starsNumber = 1;
 			}
 		}
-		starsNumber = 1;
 	}
 }
 
@@ -186,5 +200,6 @@ function openModal() {
 function playAgain() {
 	modal.style.display = 'none';
 	gameBoard.style.display = 'flex';
+	cardsOpen = [];
 	startGame();
 }
