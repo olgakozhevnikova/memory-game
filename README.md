@@ -21,5 +21,4 @@ It is a game to test player's memory. It consists of 16 cards arranged in a rand
 
 * 3 stars for less than 3 wrong moves,
 * 2 stars for less than 5 wrong moves,
-* 1 star for less than 7 wrong moves,
-* 0 stars for 7 and more wrong moves.
+* 1 star for less than 7 wrong moves.
