@@ -4,6 +4,10 @@
 
 It is a game to test player's memory. It consists of 16 cards arranged in a random order. The deck is made up of 8 different pairs of cards, each with different symbols on one side. Within few seconds a player needs to remember the location of cards on the board and then flip over two hidden cards at a time to locate the ones that match in a less number of moves. 
 
+Follow the link below to play the game:
+
+https://olgakozhevnikova.github.io/memory-game/
+
 ## How to play
 
 1. Within 5 seconds all cards are open - try to remember the location of each card.
